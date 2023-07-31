@@ -3,14 +3,85 @@
 		{
 			"path": "pages/index/index",
 			"style": {
-				"navigationBarTitleText": "uni-app"
+				"navigationBarTitleText": "水印工具盒",
+				"navigationBarBackgroundColor": "#ffffff"
 			}
 		}
 	],
+	"subPackages": [
+		{
+		"root": "pages/detail",
+		"pages": [{
+			"path": "index",
+			"style": {
+				"navigationBarTitleText": "解析详情"
+			}
+			}]
+		},
+		{
+		"root": "pages/question",
+		"pages": [{
+			"path": "index",
+			"style": {
+				"navigationBarTitleText": "常见问题"
+			}
+			}]
+		},
+		{
+		"root": "pages/history",
+		"pages": [{
+			"path": "index",
+			"style": {
+				"navigationBarTitleText": "历史列表"
+			}
+			}]
+		}
+	],
+	"easycom": {
+		"^u-(.*)": "uview-ui/components/u-$1/u-$1.vue"
+	},
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "uni-app",
 		"navigationBarBackgroundColor": "#F8F8F8",
 		"backgroundColor": "#F8F8F8"
 	}
+	// "tabBar": {
+	// 	"iconfontSrc":"static/iconfont.ttf",
+	// 	"list": [
+	// 	  {
+	// 		"pagePath": "pages/index/index",
+	// 		"text": "视频去水印",
+	// 		"iconfont": {
+	// 		  "text": "\ue102",
+	// 		  "selectedText": "\ue103",
+	// 		  "fontSize": "17px",
+	// 		  "color": "#000000",
+	// 		  "selectedColor": "#0000ff"
+	// 		}
+	// 	  },
+	// 	  {
+	// 		"pagePath": "pages/other/index",
+	// 		"text": "便捷工具",
+	// 		"iconfont": {
+	// 		  "text": "\ue102",
+	// 		  "selectedText": "\ue103",
+	// 		  "fontSize": "17px",
+	// 		  "color": "#000000",
+	// 		  "selectedColor": "#0000ff"
+	// 		}
+	// 	  },
+	// 	  {
+	// 		"pagePath": "pages/profile/index",
+	// 		"text": "我的",
+	// 		"iconfont": {
+	// 		  "text": "\ue102",
+	// 		  "selectedText": "\ue103",
+	// 		  "fontSize": "17px",
+	// 		  "color": "#000000",
+	// 		  "selectedColor": "#0000ff"	
+	// 		}
+	// 	  }
+	// 	]
+	//   }
 }
