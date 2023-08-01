@@ -6,9 +6,10 @@
         height="150"
         v-model="urlvalue"
         border="none"
-        placeholder="请输入内容"
+        placeholder="请粘贴主流平台视频分享链接"
       ></u--textarea>
     </view>
+    <view class="statement"> 没有套路,下载无需观看视频 </view>
     <!-- 去水印 -->
     <u-row
       customStyle="margin-bottom: 10px;margin-top:10px;"
@@ -25,12 +26,7 @@
         ></u-button>
       </u-col>
       <u-col span="6">
-        <u-button
-          type="primary"
-          :color="color"
-          @click="pasteText"
-          :text="btnRight"
-        >
+        <u-button type="primary" :color="color" @click="pasteText" :text="btnRight">
         </u-button>
       </u-col>
     </u-row>
@@ -48,15 +44,11 @@
         ></u-button>
       </u-col>
       <u-col span="6">
-        <u-button
-          type="primary"
-          :color="color"
-          @click="goToHistory"
-          text="历史记录"
-        >
+        <u-button type="primary" :color="color" @click="goToHistory" text="历史记录">
         </u-button>
       </u-col>
     </u-row>
+    <ad unit-id="adunit-062f2627c6a9f95d" ad-type="video" ad-theme="white"></ad>
   </view>
 </template>
 
@@ -70,13 +62,20 @@ export default {
       urlvalue: "",
       color: "#000",
       btnLeft: "粘贴并解析",
-      btnRight: "粘贴内容",
+      btnRight: "清空内容",
       loading: false,
       videoInfo: {},
       videoHistory: [],
     };
   },
-  onLoad() {},
+  onLoad() {
+    uni.showShareMenu({
+      withShareTicket: true,
+      title: "水印工具盒",
+      content: "免费，好用的去水印工具",
+      path: "/pages/index/index",
+    });
+  },
   watch: {
     urlvalue(newVal, oldVal) {
       if (newVal) {
@@ -105,11 +104,11 @@ export default {
       if (this.urlvalue) {
         this.urlvalue = "";
       } else {
-        uni.getClipboardData({
-          success: (res) => {
-            this.urlvalue = res.data;
-          },
-        });
+        // uni.getClipboardData({
+        //   success: (res) => {
+        //     this.urlvalue = res.data;
+        //   },
+        // });
       }
     },
     // 获取视频
@@ -117,7 +116,15 @@ export default {
       console.log("video", video);
       let url = extractLinkFromString(this.urlvalue);
       console.log(url);
-      if (!this.urlvalue || !url) {
+      if (!url) {
+        uni.showToast({
+          title: "请粘贴正确的视频地址",
+          icon: "none",
+        });
+        this.loading = false;
+        return;
+      }
+      if (!this.urlvalue) {
         uni.showToast({
           title: "请先粘贴视频地址",
           icon: "none",
@@ -148,12 +155,11 @@ export default {
                 },
               });
           }
-          // this.videoHistory = res.data;
         },
         fail: () => {
           uni.setStorage({
             key: "video_history",
-            data: this.videoHistory,
+            data: this.videoHistory.concat([this.urlvalue]),
             success: () => {
               console.log("success");
             },
@@ -222,6 +228,12 @@ export default {
   }
   .paste_btn {
     margin-left: 10px;
+  }
+  .statement {
+    color: #000000;
+    font-size: 14px;
+    text-align: center;
+    margin: 10px 0;
   }
 }
 </style>
